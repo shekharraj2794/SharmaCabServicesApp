@@ -1,97 +1,75 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Sharma Cab Services — Mobile App
 
-# Getting Started
+Premium React Native app for **Sharma Cab Services**, Deoghar, Jharkhand — the 5.0★-rated
+(85+ Google reviews) taxi service. Android + iOS, matching the brand and content of the
+[live website](https://deoghartaxiservices.netlify.app).
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Highlights
 
-## Step 1: Start Metro
+- **Dark-first theme system** with light mode and system-follow, persisted in MMKV
+- **Animated splash** (logo spring + pulse ring + progress), 3-slide onboarding
+- **Home**: gradient hero with Skia glow orbs + drifting gold particles, live rating chip,
+  popular routes, featured vehicles, offers, animated counters, latest reviews
+- **Fleet & vehicle details**: FlashList with staggered entrances, Ken Burns gallery,
+  specs grid, favourites, sticky booking CTA with pulse ring
+- **Booking flow**: trip types, day/time chips, vehicle picker, promo codes, transparent
+  indicative fare estimate → **confetti success screen** → WhatsApp handoff to the owner
+  (how the business really books rides), receipt share, history tracking
+- **Tour packages, reviews, about (stats + timeline), contact (call/WhatsApp/maps/inquiry)**
+- **Profile** (local, on-device), saved places, favourites; **history** with repeat booking
+  and cancellation; **settings** with theme, notifications, data deletion
+- **Floating glass tab bar** with a spring-animated active indicator and haptic ticks
+- Micro-interactions everywhere: press-scale springs, pulse rings, shimmer skeletons,
+  pull-to-refresh, haptics — all Reanimated, all 60fps-friendly
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Tech stack
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+React Native 0.86 · TypeScript (strict) · React Navigation 7 · **Reanimated v4**
+(RN 0.86 requires v4; it ships the complete v3 API) · Gesture Handler · Skia · SVG ·
+Linear Gradient · Blur (iOS; tinted fallback on Android) · MMKV v4 · Axios +
+TanStack Query · FlashList v2 · Vector Icons (Ionicons) · Haptic Feedback · Lottie
+(installed for future brand animations).
 
-```sh
-# Using npm
-npm start
+## Architecture
 
-# OR using Yarn
-yarn start
+```
+src/
+  app/          App entry: providers (Gesture, SafeArea, Query, Theme, Navigation)
+  theme/        Design tokens, dark/light themes, ThemeProvider
+  navigation/   Root stack, tabs, custom animated TabBar, typed params
+  components/
+    ui/         AppText, PremiumButton, GlassCard, TextField, Chip, Skeleton,
+                AnimatedCounter, PulseRing, RatingStars, ListRow, ScreenHeader…
+    cards/      Vehicle / Review / Package / Destination / Offer / Booking cards
+    fx/         ParticleField, GlowOrbs (Skia), Confetti
+  screens/      14 screens (Splash → Settings)
+  services/     api (axios + simulated latency), bookings, links, storage (MMKV)
+  hooks/        React Query hooks, useBookings, useHaptics
+  data/         Real business data: fleet, reviews, packages, routes, company
+  types/        Domain models
+  utils/        Formatting, date/time helpers
 ```
 
-## Step 2: Build and run your app
+The API layer resolves from bundled real business data behind simulated latency (so
+loading/skeleton states are real). Point `services/api.ts` at a backend later — the
+signatures and React Query hooks stay unchanged. Fare estimates are explicitly
+**indicative**; the final fare is always confirmed by the owner on WhatsApp.
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+## Running
 
-### Android
+```bash
+npm install
 
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+# iOS (needs Xcode + CocoaPods)
+cd ios && bundle install && bundle exec pod install && cd ..
 npm run ios
 
-# OR using Yarn
-yarn ios
+# Android (needs Android SDK)
+npm run android
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+Checks: `npx tsc --noEmit` · `npm run lint` · `npm test`
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## Business contact
 
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
++91 87787 35540 · WhatsApp bookings · Deoghar, Jharkhand

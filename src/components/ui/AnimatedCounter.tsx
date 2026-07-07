@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { TextInput, TextStyle } from 'react-native';
+import { TextInput, TextInputProps, TextStyle } from 'react-native';
 import Animated, {
   Easing,
   useAnimatedProps,
@@ -42,7 +42,7 @@ export function AnimatedCounter({
 
   const animatedProps = useAnimatedProps(() => {
     const text = `${prefix}${progress.value.toFixed(decimals)}${suffix}`;
-    return { text } as { text: string };
+    return { text } as unknown as Partial<TextInputProps>;
   });
 
   return (

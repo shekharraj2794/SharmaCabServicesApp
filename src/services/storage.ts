@@ -1,6 +1,6 @@
-import { MMKV } from 'react-native-mmkv';
+import { createMMKV } from 'react-native-mmkv';
 
-export const storage = new MMKV({ id: 'sharma-cabs' });
+export const storage = createMMKV({ id: 'sharma-cabs' });
 
 export const StorageKeys = {
   themeMode: 'theme.mode',

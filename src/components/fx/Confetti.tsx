@@ -70,7 +70,7 @@ export const Confetti = memo(function Confetti({ count = 28 }: { count?: number 
   );
 
   return (
-    <Animated.View pointerEvents="none" style={StyleSheet.absoluteFillObject}>
+    <Animated.View pointerEvents="none" style={StyleSheet.absoluteFill}>
       {pieces.map(p => (
         <Piece
           key={p.id}

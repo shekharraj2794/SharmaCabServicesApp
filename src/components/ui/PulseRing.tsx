@@ -35,7 +35,7 @@ export function PulseRing({ color, borderRadius = 999, duration = 2600 }: PulseR
     <Animated.View
       pointerEvents="none"
       style={[
-        StyleSheet.absoluteFillObject,
+        StyleSheet.absoluteFill,
         { borderRadius, borderWidth: 2.5, borderColor: color },
         ringStyle,
       ]}

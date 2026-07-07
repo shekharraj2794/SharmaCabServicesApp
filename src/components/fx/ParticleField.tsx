@@ -71,7 +71,7 @@ export const ParticleField = memo(function ParticleField({
   );
 
   return (
-    <View pointerEvents="none" style={[StyleSheet.absoluteFillObject, styles.clip]}>
+    <View pointerEvents="none" style={[StyleSheet.absoluteFill, styles.clip]}>
       {particles.map(p => (
         <Particle
           key={p.id}

@@ -17,7 +17,7 @@ export function GlowOrbs({
   colorB = 'rgba(251, 191, 36, 0.35)',
 }: GlowOrbsProps) {
   return (
-    <Canvas pointerEvents="none" style={[StyleSheet.absoluteFillObject, { width, height }]}>
+    <Canvas pointerEvents="none" style={[StyleSheet.absoluteFill, { width, height }]}>
       <Circle cx={width * 0.15} cy={height * 0.2} r={width * 0.35} color={colorA}>
         <BlurMask blur={70} style="normal" />
       </Circle>

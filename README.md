@@ -70,6 +70,17 @@ npm run android
 
 Checks: `npx tsc --noEmit` · `npm run lint` · `npm test`
 
+### macOS setup notes
+
+- **Node ≥ 20.19 required** (RN 0.86's Metro uses newer `util.styleText`). If your default
+  Node is older, install a newer one (e.g. `brew install node@22`) and put it first in
+  `PATH`, or set `NODE_BINARY` in `ios/.xcode.env.local`.
+- If `xcodebuild` complains about Command Line Tools, point it at Xcode once:
+  `sudo xcode-select -s /Applications/Xcode.app/Contents/Developer`
+- iOS fonts: `Ionicons.ttf` is registered via `UIAppFonts` in `Info.plist` (already done).
+- To run on a specific simulator:
+  `npx react-native run-ios --simulator "iPhone 17 Pro"`
+
 ## Business contact
 
 +91 87787 35540 · WhatsApp bookings · Deoghar, Jharkhand

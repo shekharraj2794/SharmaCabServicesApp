@@ -1,9 +1,11 @@
+import type { ImageSourcePropType } from 'react-native';
+
 export interface Vehicle {
   id: string;
   name: string;
   tagline: string;
   seats: number;
-  imageUrl: string;
+  image: ImageSourcePropType;
   perKmRate: number;
   minKm: number;
   features: string[];
@@ -15,7 +17,7 @@ export interface Vehicle {
 export interface TourPackage {
   id: string;
   title: string;
-  imageUrl: string;
+  image: ImageSourcePropType;
   duration: string;
   highlights: string[];
   description: string;

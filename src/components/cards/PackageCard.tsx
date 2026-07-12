@@ -21,7 +21,7 @@ export function PackageCard({ pkg, onBook }: PackageCardProps) {
         { backgroundColor: theme.colors.surface, borderColor: theme.colors.border },
       ]}>
       <Image
-        source={{ uri: pkg.imageUrl }}
+        source={pkg.image}
         style={styles.image}
         resizeMode="cover"
         accessibilityIgnoresInvertColors

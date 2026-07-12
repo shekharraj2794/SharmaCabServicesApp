@@ -1,6 +1,5 @@
 import { Vehicle } from '../types/models';
-
-const IMG = 'https://deoghartaxiservices.netlify.app/images';
+import { images } from '../assets/images';
 
 /**
  * Per-km rates are indicative and used only for the in-app estimate.
@@ -12,7 +11,7 @@ export const vehicles: Vehicle[] = [
     name: 'Swift Dzire',
     tagline: 'Smooth, efficient sedan for airport runs and outstation miles.',
     seats: 4,
-    imageUrl: `${IMG}/Swift_Dzire-60984aca-9bf2-42cc-bbc1-e924daeb0f91.png`,
+    image: images.dzire,
     perKmRate: 12,
     minKm: 30,
     features: ['AC', 'Spacious boot', 'Great mileage', 'Highway ready'],
@@ -24,7 +23,7 @@ export const vehicles: Vehicle[] = [
     name: 'Tata Tigor',
     tagline: 'Compact comfort with a premium feel for city travel.',
     seats: 4,
-    imageUrl: `${IMG}/Tata_Tigor-d5bedc79-8518-440e-b794-25733f1d81fc.png`,
+    image: images.tigor,
     perKmRate: 12,
     minKm: 30,
     features: ['AC', 'Premium cabin', 'City friendly', 'Clean interiors'],
@@ -37,7 +36,7 @@ export const vehicles: Vehicle[] = [
     name: 'Maruti Fronx',
     tagline: 'Bold crossover stance — made for scenic weekend drives.',
     seats: 4,
-    imageUrl: `${IMG}/Fronx_-89e54912-3730-4c15-9321-37c5ac053380.png`,
+    image: images.fronx,
     perKmRate: 14,
     minKm: 30,
     features: ['AC', 'High seating', 'New car', 'Weekend getaways'],
@@ -49,7 +48,7 @@ export const vehicles: Vehicle[] = [
     name: 'Innova Crysta',
     tagline: 'Premium MPV — the family favourite for long-distance comfort.',
     seats: 7,
-    imageUrl: `${IMG}/InnovaCrysta-930fd43f-5876-4f40-8d34-389ec5072e05.png`,
+    image: images.innova,
     perKmRate: 18,
     minKm: 50,
     features: ['AC', 'Captain comfort', 'Big luggage room', 'Elders friendly'],
@@ -62,7 +61,7 @@ export const vehicles: Vehicle[] = [
     name: 'Ertiga',
     tagline: 'Flexible seven-seater for groups and temple tours.',
     seats: 7,
-    imageUrl: `${IMG}/Ertiga-6e7db7a2-c45b-40f3-9b53-0c1ac2cb461b.png`,
+    image: images.ertiga,
     perKmRate: 16,
     minKm: 40,
     features: ['AC', '7 seats', 'Economical', 'Temple tours'],
@@ -74,7 +73,7 @@ export const vehicles: Vehicle[] = [
     name: 'Force Traveller',
     tagline: 'High-roof 16-seater for big family outings and pilgrimages.',
     seats: 16,
-    imageUrl: `${IMG}/ForceTraveller-5315aaaa-e573-415b-9c50-73ac99182ae3.png`,
+    image: images.traveller,
     perKmRate: 26,
     minKm: 80,
     features: ['High roof', '16 seats', 'Curtains', 'Group pilgrimages'],

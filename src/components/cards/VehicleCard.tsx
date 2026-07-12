@@ -35,7 +35,7 @@ export function VehicleCard({ vehicle, onPress, compact = false }: VehicleCardPr
         ]}>
         <View style={styles.imageWrap}>
           <Image
-            source={{ uri: vehicle.imageUrl }}
+            source={vehicle.image}
             style={styles.image}
             resizeMode="cover"
             accessibilityIgnoresInvertColors

@@ -72,7 +72,7 @@ export function VehicleDetailsScreen({ route, navigation }: RootScreenProps<'Veh
         <View style={[styles.gallery, { height: width * 0.66 }]}>
           <Animated.View style={[StyleSheet.absoluteFill, kenBurns]}>
             <Image
-              source={{ uri: vehicle.imageUrl }}
+              source={vehicle.image}
               style={StyleSheet.absoluteFill}
               resizeMode="cover"
               accessibilityIgnoresInvertColors

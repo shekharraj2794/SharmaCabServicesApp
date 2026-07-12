@@ -1,12 +1,11 @@
 import { TourPackage } from '../types/models';
-
-const IMG = 'https://deoghartaxiservices.netlify.app/images';
+import { images } from '../assets/images';
 
 export const tourPackages: TourPackage[] = [
   {
     id: 'city-tour',
     title: 'Temple & City Tour',
-    imageUrl: `${IMG}/CityTour-f8331abc-4521-4036-bd88-eadbebd97731.png`,
+    image: images.cityTour,
     duration: 'Full day · at your pace',
     highlights: ['Baidyanath Dham darshan', 'Naulakha Temple', 'Puja arranged on request', 'Local guidance'],
     description:
@@ -16,7 +15,7 @@ export const tourPackages: TourPackage[] = [
   {
     id: 'outstation',
     title: 'Outstation Journeys',
-    imageUrl: `${IMG}/Outstations-7e57a70d-27e2-475d-af61-6f0c46bd3573.png`,
+    image: images.outstation,
     duration: 'One-way & round trips',
     highlights: ['Kolkata · Patna · Varanasi', 'Gaya · Ranchi · Jamshedpur', 'Basukinath · Tarapith · Puri', 'Comfortable halts'],
     description:
@@ -26,7 +25,7 @@ export const tourPackages: TourPackage[] = [
   {
     id: 'airport-transfer',
     title: 'Airport & Railway Transfers',
-    imageUrl: `${IMG}/airport-0dbffe7f-2e39-430c-bfe4-1f217c74969c.png`,
+    image: images.airport,
     duration: 'On-time pickup & drop',
     highlights: ['Deoghar Airport', 'Railway stations', 'Luggage-friendly cars', 'Driver waiting on arrival'],
     description:

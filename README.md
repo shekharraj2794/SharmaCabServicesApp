@@ -62,6 +62,9 @@ Grab the test APK from
 download on your phone, open, and allow installing from unknown sources.
 (Debug-signed universal APK for testing; not a Play Store build.)
 
+> **Full step-by-step run guide (terminal, Xcode, Android Studio):
+> [INSTALLATION.md](INSTALLATION.md)**
+
 ## Running
 
 ```bash

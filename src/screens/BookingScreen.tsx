@@ -6,6 +6,7 @@ import Animated, { FadeInDown, LinearTransition } from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../theme';
 import { AppText } from '../components/ui/AppText';
+import { ScreenHeader } from '../components/ui/ScreenHeader';
 import { Chip } from '../components/ui/Chip';
 import { GlassCard } from '../components/ui/GlassCard';
 import { PremiumButton } from '../components/ui/PremiumButton';
@@ -37,6 +38,7 @@ export function BookingScreen() {
   const navigation = useNavigation();
   const route = useRoute();
   const params = (route.params ?? {}) as BookingParams;
+  const isModal = route.name === 'BookingFlow';
   const haptics = useHaptics();
 
   const days = useMemo(() => nextDays(7), []);
@@ -100,12 +102,19 @@ export function BookingScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scroll}
         keyboardShouldPersistTaps="handled">
-        <Animated.View entering={FadeInDown.springify()}>
-          <AppText variant="title">Book your ride</AppText>
-          <AppText variant="body" muted style={styles.subtitle}>
-            Instant estimate now — final fare confirmed by the owner on WhatsApp.
-          </AppText>
-        </Animated.View>
+        {isModal ? (
+          <ScreenHeader
+            title="Book your ride"
+            subtitle="Instant estimate — final fare confirmed on WhatsApp"
+          />
+        ) : (
+          <Animated.View entering={FadeInDown.springify()}>
+            <AppText variant="title">Book your ride</AppText>
+            <AppText variant="body" muted style={styles.subtitle}>
+              Instant estimate now — final fare confirmed by the owner on WhatsApp.
+            </AppText>
+          </Animated.View>
+        )}
 
         {/* Trip type */}
         <Animated.View entering={FadeInDown.delay(60).springify()} style={styles.chipsRow}>

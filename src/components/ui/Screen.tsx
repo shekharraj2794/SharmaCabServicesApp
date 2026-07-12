@@ -56,5 +56,5 @@ export function Screen({
 
 const styles = StyleSheet.create({
   flex: { flex: 1 },
-  grow: { flexGrow: 1, paddingBottom: 110 },
+  grow: { flexGrow: 1, paddingBottom: 132 },
 });

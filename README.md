@@ -55,6 +55,13 @@ loading/skeleton states are real). Point `services/api.ts` at a backend later â€
 signatures and React Query hooks stay unchanged. Fare estimates are explicitly
 **indicative**; the final fare is always confirmed by the owner on WhatsApp.
 
+## Try it on Android
+
+Grab the test APK from
+[Releases](https://github.com/shekharraj2794/SharmaCabServicesApp/releases) â€”
+download on your phone, open, and allow installing from unknown sources.
+(Debug-signed universal APK for testing; not a Play Store build.)
+
 ## Running
 
 ```bash

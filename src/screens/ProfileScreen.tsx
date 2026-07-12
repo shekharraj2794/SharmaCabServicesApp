@@ -92,11 +92,13 @@ export function ProfileScreen() {
 
       {/* Identity card */}
       <Animated.View entering={FadeInDown.springify()}>
-        <LinearGradient
-          colors={theme.gradients.primary}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.idCard}>
+        <View style={styles.idCard}>
+          <LinearGradient
+            colors={theme.gradients.primary}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={StyleSheet.absoluteFill}
+          />
           <View style={styles.avatar}>
             <AppText variant="heading" color="#1e1b4b">
               {initials}
@@ -117,7 +119,7 @@ export function ProfileScreen() {
             onPress={() => setEditing(!editing)}
             accessibilityLabel={editing ? 'Cancel editing' : 'Edit profile'}
           />
-        </LinearGradient>
+        </View>
       </Animated.View>
 
       {editing ? (
@@ -232,6 +234,7 @@ const styles = StyleSheet.create({
     gap: 14,
     borderRadius: 22,
     padding: 18,
+    overflow: 'hidden',
   },
   avatar: {
     width: 52,

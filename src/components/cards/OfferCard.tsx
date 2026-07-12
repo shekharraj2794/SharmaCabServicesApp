@@ -16,11 +16,13 @@ export function OfferCard({ offer, onPress }: OfferCardProps) {
   const { theme } = useTheme();
   return (
     <PressableScale onPress={onPress} accessibilityRole="button" accessibilityLabel={offer.title}>
-      <LinearGradient
-        colors={theme.gradients.primary}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.card}>
+      <View style={styles.card}>
+        <LinearGradient
+          colors={theme.gradients.primary}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={StyleSheet.absoluteFill}
+        />
         <View style={styles.tag}>
           <Ionicons name="pricetag-outline" size={12} color="#1e1b4b" />
           <AppText variant="caption" color="#1e1b4b" style={styles.tagText}>
@@ -33,7 +35,7 @@ export function OfferCard({ offer, onPress }: OfferCardProps) {
         <AppText variant="caption" color="rgba(255,255,255,0.85)">
           {offer.subtitle}
         </AppText>
-      </LinearGradient>
+      </View>
     </PressableScale>
   );
 }
@@ -44,6 +46,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 16,
     gap: 8,
+    overflow: 'hidden',
   },
   tag: {
     flexDirection: 'row',

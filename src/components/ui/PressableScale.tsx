@@ -14,7 +14,11 @@ interface PressableScaleProps extends PressableProps {
   style?: ViewStyle | ViewStyle[];
 }
 
-/** The base micro-interaction: springs down on press, optional haptic tick. */
+/**
+ * The base micro-interaction: springs down on press, optional haptic tick.
+ * Layout styles (flex, width…) go on the outer Pressable so rows and grids
+ * can size these correctly; the spring transform lives on the inner view.
+ */
 export function PressableScale({
   children,
   scaleTo = 0.96,
@@ -34,6 +38,7 @@ export function PressableScale({
   return (
     <Pressable
       {...rest}
+      style={style}
       onPressIn={e => {
         scale.value = withSpring(scaleTo, { damping: 18, stiffness: 320 });
         if (haptic) {
@@ -45,7 +50,7 @@ export function PressableScale({
         scale.value = withSpring(1, { damping: 14, stiffness: 220 });
         onPressOut?.(e);
       }}>
-      <Animated.View style={[animatedStyle, style]}>{children}</Animated.View>
+      <Animated.View style={animatedStyle}>{children}</Animated.View>
     </Pressable>
   );
 }

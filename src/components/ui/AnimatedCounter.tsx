@@ -1,15 +1,5 @@
-import React, { useEffect } from 'react';
-import { TextInput, TextInputProps, TextStyle } from 'react-native';
-import Animated, {
-  Easing,
-  useAnimatedProps,
-  useSharedValue,
-  withDelay,
-  withTiming,
-} from 'react-native-reanimated';
-
-Animated.addWhitelistedNativeProps({ text: true });
-const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
+import React, { useEffect, useState } from 'react';
+import { Text, TextStyle } from 'react-native';
 
 interface AnimatedCounterProps {
   value: number;
@@ -21,7 +11,11 @@ interface AnimatedCounterProps {
   style?: TextStyle | TextStyle[];
 }
 
-/** Count-up number driven on the UI thread (classic ReText pattern). */
+/**
+ * Count-up number. Driven with requestAnimationFrame + state on the JS
+ * thread — animating a TextInput's text prop is not supported on the
+ * New Architecture, and a dozen state updates over ~1.4s is cheap.
+ */
 export function AnimatedCounter({
   value,
   decimals = 0,
@@ -31,28 +25,39 @@ export function AnimatedCounter({
   duration = 1400,
   style,
 }: AnimatedCounterProps) {
-  const progress = useSharedValue(0);
+  const [display, setDisplay] = useState(`${prefix}${(0).toFixed(decimals)}${suffix}`);
 
   useEffect(() => {
-    progress.value = withDelay(
-      delay,
-      withTiming(value, { duration, easing: Easing.out(Easing.cubic) }),
-    );
-  }, [progress, value, delay, duration]);
-
-  const animatedProps = useAnimatedProps(() => {
-    const text = `${prefix}${progress.value.toFixed(decimals)}${suffix}`;
-    return { text } as unknown as Partial<TextInputProps>;
-  });
+    let raf = 0;
+    let cancelled = false;
+    const timer = setTimeout(() => {
+      let start: number | null = null;
+      const tick = (now: number) => {
+        if (cancelled) {
+          return;
+        }
+        if (start === null) {
+          start = now;
+        }
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        setDisplay(`${prefix}${(value * eased).toFixed(decimals)}${suffix}`);
+        if (p < 1) {
+          raf = requestAnimationFrame(tick);
+        }
+      };
+      raf = requestAnimationFrame(tick);
+    }, delay);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+      cancelAnimationFrame(raf);
+    };
+  }, [value, decimals, prefix, suffix, delay, duration]);
 
   return (
-    <AnimatedTextInput
-      editable={false}
-      defaultValue={`${prefix}${(0).toFixed(decimals)}${suffix}`}
-      animatedProps={animatedProps}
-      underlineColorAndroid="transparent"
-      style={[{ padding: 0 }, style]}
-      accessibilityLabel={`${prefix}${value}${suffix}`}
-    />
+    <Text style={style} accessibilityLabel={`${prefix}${value}${suffix}`}>
+      {display}
+    </Text>
   );
 }

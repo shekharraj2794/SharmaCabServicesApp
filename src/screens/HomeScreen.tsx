@@ -26,8 +26,6 @@ import { company, stats } from '../data/company';
 import { links } from '../services/links';
 import { sendBookingToWhatsApp } from '../services/bookings';
 
-const HERO_HEIGHT = 300;
-
 export function HomeScreen() {
   const { theme, toggle } = useTheme();
   const navigation = useNavigation();
@@ -39,6 +37,7 @@ export function HomeScreen() {
   const { bookings, refresh } = useBookings();
 
   const heroWidth = width - theme.spacing.lg * 2;
+  const [heroHeight, setHeroHeight] = React.useState(320);
   const latestBooking = bookings[0];
 
   return (
@@ -72,15 +71,20 @@ export function HomeScreen() {
         </PressableScale>
       </View>
 
-      {/* Hero */}
+      {/* Hero — gradient is an absolute background layer so it never
+          participates in (interop-layer) height measurement */}
       <Animated.View entering={FadeInDown.duration(600).springify()}>
-        <LinearGradient
-          colors={theme.gradients.hero}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={[styles.hero, { height: HERO_HEIGHT }]}>
-          <GlowOrbs width={heroWidth} height={HERO_HEIGHT} />
-          <ParticleField width={heroWidth} height={HERO_HEIGHT} count={12} />
+        <View
+          style={styles.hero}
+          onLayout={e => setHeroHeight(Math.round(e.nativeEvent.layout.height))}>
+          <LinearGradient
+            colors={theme.gradients.hero}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={StyleSheet.absoluteFill}
+          />
+          <GlowOrbs width={heroWidth} height={heroHeight} />
+          <ParticleField width={heroWidth} height={heroHeight} count={12} />
           <PressableScale onPress={() => navigation.navigate('Reviews')} haptic={false}>
             <View style={styles.ratingChip}>
               <RatingStars rating={5} size={12} />
@@ -115,7 +119,7 @@ export function HomeScreen() {
               onPress={() => links.whatsapp("Hi, I'd like to book a cab with Sharma Cab Services.")}
             />
           </View>
-        </LinearGradient>
+        </View>
       </Animated.View>
 
       {/* Popular destinations */}
@@ -225,12 +229,13 @@ export function HomeScreen() {
       </View>
 
       {/* Quick links */}
+      <SectionHeader title="More from Sharma Cabs" />
       <View style={styles.quickLinks}>
         {(
           [
-            { icon: 'information-circle-outline', label: 'About', to: 'About' },
-            { icon: 'call-outline', label: 'Contact', to: 'Contact' },
-            { icon: 'time-outline', label: 'History', to: 'History' },
+            { icon: 'information-circle-outline', label: 'About', hint: 'Our story', to: 'About' },
+            { icon: 'call-outline', label: 'Contact', hint: 'Call · chat', to: 'Contact' },
+            { icon: 'time-outline', label: 'History', hint: 'Your rides', to: 'History' },
           ] as const
         ).map(q => (
           <PressableScale
@@ -244,8 +249,13 @@ export function HomeScreen() {
                 styles.quickLink,
                 { backgroundColor: theme.colors.surface, borderColor: theme.colors.border },
               ]}>
-              <Ionicons name={q.icon} size={20} color={theme.colors.primary} />
-              <AppText variant="label">{q.label}</AppText>
+              <View style={[styles.quickIcon, { backgroundColor: theme.colors.primarySoft }]}>
+                <Ionicons name={q.icon} size={20} color={theme.colors.primary} />
+              </View>
+              <AppText variant="subheading">{q.label}</AppText>
+              <AppText variant="caption" muted>
+                {q.hint}
+              </AppText>
             </View>
           </PressableScale>
         ))}
@@ -272,9 +282,10 @@ const styles = StyleSheet.create({
   },
   hero: {
     borderRadius: 26,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 40,
+    paddingBottom: 22,
     overflow: 'hidden',
-    justifyContent: 'flex-end',
     gap: 8,
   },
   ratingChip: {
@@ -304,13 +315,22 @@ const styles = StyleSheet.create({
   statItem: { flex: 1, alignItems: 'center', gap: 2 },
   statValue: { fontSize: 22, fontWeight: '800', textAlign: 'center' },
   reviewsCol: { gap: 12 },
-  quickLinks: { flexDirection: 'row', gap: 10, marginTop: 24 },
+  quickLinks: { flexDirection: 'row', gap: 10 },
   quickLinkWrap: { flex: 1 },
   quickLink: {
     alignItems: 'center',
-    gap: 6,
-    borderRadius: 16,
+    gap: 4,
+    borderRadius: 18,
     borderWidth: 1,
-    paddingVertical: 14,
+    paddingVertical: 16,
+    paddingHorizontal: 8,
+  },
+  quickIcon: {
+    width: 42,
+    height: 42,
+    borderRadius: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 4,
   },
 });
